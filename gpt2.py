@@ -28,6 +28,9 @@ def get_logits_and_tokens(text: str) -> Tuple[torch.Tensor, List[str]]:
     return output.logits[0][:-1], tokens
 
 def get_classification(prompt: str, classes: List[str]) -> Dict[str, float]:
+    if any([not class_name.startswith(" ") for class_name in classes]):
+        # This is so I don't mess up during development. This should probably be a warning, or it could automatically add the space, but for now I want to be explicit about what I'm doing.
+        raise ValueError("All class names must start with a space.")
     generated_text: str = generate(prompt, stop_token="\n")
     logits, tokens = get_logits_and_tokens(generated_text)
     last_token_probs: torch.Tensor = torch.softmax(logits[-1], dim=0)
