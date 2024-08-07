@@ -28,15 +28,17 @@ def split_text(text: str) -> (str, str):
         raise ValueError(f'Error splitting text: {text}')
 
 def just_ask_llm(paper: Paper) -> float:
-    examples = """Title (str): the phenomenon of spicy foods
-Abstract (str): Spicy foods are a common phenomenon in many cultures. This paper explores the reasons why people enjoy spicy foods and the health benefits of consuming them.
+    examples = """Title (str): qualitative and quantitative estimates for minimal hypersurfaces with bounded index and area
+Abstract (str): we prove qualitative estimates on the total curvature of closed minimal hypersurfaces in closed riemannian manifolds in terms of their index and area restricting to the case where the hypersurface has dimension less than seven.
 AI relevance (True/False): False
 
 Title (str): updating the transformer for alien languages
 Abstract (str): Transformers are a powerful tool for natural language processing, but they are not always effective for alien languages. This paper proposes a new method for updating the transformer to work with alien languages.
 AI relevance (True/False): True"""
 
-    prompt = f"{examples}\n\nTitle (str): {paper.title}\nAbstract (str): {paper.abstract}\nAI relevance (True/False):"
+    guidance = "In this dataset, AI relevance is a strict category. If the paper is narrowly about artificial intelligence, this field will be true. Papers in other fields, such as math, cognitive science, or linguistics, will be marked as false."
+
+    prompt = f"{guidance}\n\n{examples}\n\nTitle (str): {paper.title}\nAbstract (str): {paper.abstract}\nAI relevance (True/False):"
     classification_result = get_classification(prompt, [" True", " False"], print_all_probs=False)
     print(f"Classification Result: {classification_result}")
 
