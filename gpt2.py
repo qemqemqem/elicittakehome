@@ -32,6 +32,8 @@ def get_classification(prompt: str, classes: List[str], print_all_probs: bool = 
         # This is so I don't mess up during development. This should probably be a warning, or it could automatically add the space, but for now I want to be explicit about what I'm doing.
         raise ValueError("All class names must start with a space.")
     generated_text: str = generate(prompt, stop_token="\n")
+    if print_all_probs:
+        print(f"Generated Text: `{generated_text}`")
     logits, tokens = get_logits_and_tokens(generated_text)
     last_token_probs: torch.Tensor = torch.softmax(logits[-1], dim=0)
     class_probs: Dict[str, float] = {class_name: last_token_probs[tokenizer.encode(class_name)[0]].item() for class_name in classes}
