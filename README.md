@@ -6,4 +6,14 @@ See the [Notion page](https://andrewrichardson.notion.site/Elicit-Interview-49fd
 
 # Running the Code
 
-TBD
+Run this command:
+
+```commandline
+python main.py --num_process 500
+```
+
+You can install the required packages by running:
+
+```commandline
+pip install -r requirements.txt
+```
