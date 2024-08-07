@@ -3,7 +3,6 @@ import json
 import random
 from typing import Optional
 
-import openai
 import attrs
 
 
