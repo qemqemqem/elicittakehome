@@ -92,14 +92,12 @@ if __name__ == '__main__':
     print(f"Accuracy: {num_correct} / {args.num_process} == {num_correct / args.num_process}")
     print(f"Average correctness: {sum(correctnesses) / len(correctnesses)}")
 
-    # Compute confusion matrix for binary classification
+    # Compute confusion matrix
     cm_binary = confusion_matrix(true_labels, predicted_labels_binary)
-    print("Confusion Matrix (Binary):")
+    print("Confusion Matrix:")
     print(cm_binary)
-
-    # Compute confusion matrix for probabilistic classification
-    thresholded_probs = [prob > 0.5 for prob in predicted_labels_prob]
-    cm_prob = confusion_matrix(true_labels, thresholded_probs)
-    print("Confusion Matrix (Probabilistic):")
-    print(cm_prob)
-
+    tn, fp, fn, tp = cm_binary.ravel()
+    print(f"Paper is AI, Model predicts AI: {tp}")
+    print(f"Paper is AI, Model predicts not AI: {fn}")
+    print(f"Paper is not AI, Model predicts AI: {fp}")
+    print(f"Paper is not AI, Model predicts not AI: {tn}")
