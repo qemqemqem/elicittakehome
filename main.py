@@ -64,12 +64,16 @@ if __name__ == '__main__':
 
     # Part 1, Naively asking GPT2 to predict AI relevance
     num_correct = 0
+    correctnesses = []
     for paper in train_set[:args.num_process]:
         print(f"{paper.title} --- {paper.abstract}"[:100])
         true_prob = just_ask_llm(paper)
         true_or_false = true_prob > 0.5
         correct_label = paper.is_ai
+        print(f"True Prob: {true_prob}, True or False: {true_or_false}, Correct Label: {correct_label}")
         if true_or_false == correct_label:
             num_correct += 1
+        correctnesses.append(true_prob if correct_label else 1 - true_prob)
     print(f"Accuracy: {num_correct} / {args.num_process} == {num_correct / args.num_process}")
+    print(f"Average correctness: {sum(correctnesses) / len(correctnesses)}")
 
