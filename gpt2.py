@@ -48,5 +48,6 @@ if __name__ == "__main__":
 
     print(f"tokens: {tokens}\nnegative prob: {negative_prob}\npositive prob: {positive_prob}")
 
-    classification_result = get_classification(EXAMPLE_PROMPT, [" negative", " positive"])
+    # Use the generated text for classification
+    classification_result = get_classification(generated_text, [" negative", " positive"])
     print(f"Classification Result: {classification_result}")
