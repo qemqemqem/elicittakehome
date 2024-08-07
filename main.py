@@ -15,6 +15,10 @@ class Paper:
     id: str
     is_ai: Optional[bool] = None
 
+    def __attrs_post_init__(self):
+        if isinstance(self.is_ai, str):
+            self.is_ai = self.is_ai.lower().strip() == 'true'
+
 def split_text(text: str) -> (str, str):
     # The format is 'title. abstract'
     try:
@@ -33,7 +37,7 @@ Abstract (str): Transformers are a powerful tool for natural language processing
 AI relevance (True/False): True"""
 
     prompt = f"{examples}\n\nTitle (str): {paper.title}\nAbstract (str): {paper.abstract}\nAI relevance (True/False):"
-    classification_result = get_classification(prompt, [" True", " False"], print_all_probs=True)
+    classification_result = get_classification(prompt, [" True", " False"], print_all_probs=False)
     print(f"Classification Result: {classification_result}")
 
     true_prob = classification_result[" True"]
