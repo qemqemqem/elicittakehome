@@ -23,7 +23,7 @@ def split_text(text: str) -> (str, str):
     except ValueError:
         raise ValueError(f'Error splitting text: {text}')
 
-def just_ask_llm(paper: Paper) -> bool:
+def just_ask_llm(paper: Paper) -> float:
     examples = """Title (str): the phenomenon of spicy foods
 Abstract (str): Spicy foods are a common phenomenon in many cultures. This paper explores the reasons why people enjoy spicy foods and the health benefits of consuming them.
 AI relevance (True/False): False
@@ -35,6 +35,10 @@ AI relevance (True/False): True"""
     prompt = f"{examples}\n\nTitle (str): {paper.title}\nAbstract (str): {paper.abstract}\nAI relevance (True/False):"
     classification_result = get_classification(prompt, [" True", " False"], print_all_probs=True)
     print(f"Classification Result: {classification_result}")
+
+    true_prob = classification_result[" True"]
+    false_prob = classification_result[" False"]
+    return true_prob / (true_prob + false_prob)
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Predict AI relevance for papers.')
@@ -59,7 +63,13 @@ if __name__ == '__main__':
     random.shuffle(train_set)
 
     # Part 1, Naively asking GPT2 to predict AI relevance
+    num_correct = 0
     for paper in train_set[:args.num_process]:
         print(f"{paper.title} --- {paper.abstract}"[:100])
-        just_ask_llm(paper)
+        true_prob = just_ask_llm(paper)
+        true_or_false = true_prob > 0.5
+        correct_label = paper.is_ai
+        if true_or_false == correct_label:
+            num_correct += 1
+    print(f"Accuracy: {num_correct} / {args.num_process} == {num_correct / args.num_process}")
 
