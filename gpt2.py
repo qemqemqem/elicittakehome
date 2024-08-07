@@ -30,7 +30,7 @@ def get_logits_and_tokens(text: str) -> Tuple[torch.Tensor, List[str]]:
 def get_classification(prompt: str, classes: List[str]) -> Dict[str, float]:
     logits, tokens = get_logits_and_tokens(prompt)
     last_token_probs: torch.Tensor = torch.softmax(logits[-1], dim=0)
-    class_probs: Dict[str, float] = {class_name: last_token_probs[tokenizer.encode(f" {class_name}")[0]].item() for class_name in classes}
+    class_probs: Dict[str, float] = {class_name: last_token_probs[tokenizer.encode(class_name)[0]].item() for class_name in classes}
     return class_probs
 
 if __name__ == "__main__":
