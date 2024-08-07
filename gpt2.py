@@ -27,7 +27,7 @@ def get_logits_and_tokens(text: str) -> Tuple[torch.Tensor, List[str]]:
     output: torch.Tensor = model(input_ids.cuda())
     return output.logits[0][:-1], tokens
 
-def get_classification(prompt: str, classes: List[str]) -> Dict[str, float]:
+def get_classification(prompt: str, classes: List[str], print_all_probs: bool = False) -> Dict[str, float]:
     if any([not class_name.startswith(" ") for class_name in classes]):
         # This is so I don't mess up during development. This should probably be a warning, or it could automatically add the space, but for now I want to be explicit about what I'm doing.
         raise ValueError("All class names must start with a space.")
@@ -35,9 +35,13 @@ def get_classification(prompt: str, classes: List[str]) -> Dict[str, float]:
     logits, tokens = get_logits_and_tokens(generated_text)
     last_token_probs: torch.Tensor = torch.softmax(logits[-1], dim=0)
     class_probs: Dict[str, float] = {class_name: last_token_probs[tokenizer.encode(class_name)[0]].item() for class_name in classes}
+    
+    if print_all_probs:
+        all_probs: Dict[str, float] = {tokenizer.decode([i]): prob.item() for i, prob in enumerate(last_token_probs)}
+        print("All token probabilities:", all_probs)
+    
     return class_probs
 
-# ... existing code ...
 if __name__ == "__main__":
     EXAMPLE_PROMPT: str = """Horrible: negative
     Great: positive

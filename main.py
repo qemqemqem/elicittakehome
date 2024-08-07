@@ -52,6 +52,6 @@ if __name__ == '__main__':
 
     # Part 1, Naively asking GPT2 to predict AI relevance
     for paper in train_set[:args.num_process]:
-        print(f"{paper.title} --- {paper.abstract}")
+        print(f"{paper.title} --- {paper.abstract}"[:100])
         just_ask_llm(paper)
 
