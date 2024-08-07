@@ -38,8 +38,9 @@ def get_classification(prompt: str, classes: List[str], print_all_probs: bool = 
     
     if print_all_probs:
         all_probs: Dict[str, float] = {tokenizer.decode([i]): prob.item() for i, prob in enumerate(last_token_probs)}
-        print("All token probabilities:", all_probs)
-    
+        sorted_probs = sorted(all_probs.items(), key=lambda item: item[1], reverse=True)[:10]
+        print("Top 10 token probabilities:", sorted_probs)
+
     return class_probs
 
 if __name__ == "__main__":
