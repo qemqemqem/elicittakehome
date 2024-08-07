@@ -6,7 +6,7 @@ This is code that I've written in the past for dealing with JSONL files, includi
 Run it like this:
 
 ```
-python pprint_json.py dev.jsonl --width 100 -n 1 -p label text -r
+python pprint_json.py dev.jsonl -n 1 -p label text -r
 ```
 """
 
@@ -396,10 +396,13 @@ def main() -> None:
 
     args = parser.parse_args()
 
-    WIDTH = args.width
     if USE_RICH:
         global console
-        console = Console(force_terminal=True, width=args.width, record=True)
+        if args.width and args.width != WIDTH:
+            console = Console(force_terminal=True, width=args.width, record=True)
+        else:
+            console = Console(force_terminal=True, record=True)
+    WIDTH = args.width
 
     if args.max_str_len:
         global MAX_PRINT_LEN
