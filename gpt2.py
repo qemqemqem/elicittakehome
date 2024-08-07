@@ -28,11 +28,13 @@ def get_logits_and_tokens(text: str) -> Tuple[torch.Tensor, List[str]]:
     return output.logits[0][:-1], tokens
 
 def get_classification(prompt: str, classes: List[str]) -> Dict[str, float]:
-    logits, tokens = get_logits_and_tokens(prompt)
+    generated_text: str = generate(prompt, stop_token="\n")
+    logits, tokens = get_logits_and_tokens(generated_text)
     last_token_probs: torch.Tensor = torch.softmax(logits[-1], dim=0)
     class_probs: Dict[str, float] = {class_name: last_token_probs[tokenizer.encode(class_name)[0]].item() for class_name in classes}
     return class_probs
 
+# ... existing code ...
 if __name__ == "__main__":
     EXAMPLE_PROMPT: str = """Horrible: negative
     Great: positive
@@ -49,5 +51,5 @@ if __name__ == "__main__":
     print(f"tokens: {tokens}\nnegative prob: {negative_prob}\npositive prob: {positive_prob}")
 
     # Use the generated text for classification
-    classification_result = get_classification(generated_text, [" negative", " positive"])
+    classification_result = get_classification(EXAMPLE_PROMPT, [" negative", " positive"])
     print(f"Classification Result: {classification_result}")
