@@ -213,9 +213,8 @@ def print_problem(orig_problem, parts: Optional[list[str]] = None, print_line_nu
                 print_text(f"Error parsing attempts. KeyError: {e}")
                 print_text(f"Problem details: {json.dumps(orig_problem)}")
         elif part not in problem:
-            print(problem)
             if not using_default_parts:
-                print_text(f'Part "{part}" not found in problem')
+                print_text(f'Part "{part}" not found in problem. Run with --structure to see available parts.')
             continue
         # Specially handle each type of thing
         elif part == "code":
