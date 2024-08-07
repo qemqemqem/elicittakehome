@@ -24,7 +24,7 @@ def split_text(text: str) -> (str, str):
         raise ValueError(f'Error splitting text: {text}')
 
 def just_ask_llm(paper: Paper) -> bool:
-    prompt = f"Is this paper AI related?\n\nTitle: {paper.title}\nAbstract: {paper.abstract}\nAI relevance (True/False):"
+    prompt = f"Paper Details\n\nTitle (str): {paper.title}\nAbstract (str): {paper.abstract}\nAI relevance (True/False):"
     classification_result = get_classification(prompt, [" True", " False"], print_all_probs=True)
     print(f"Classification Result: {classification_result}")
 
