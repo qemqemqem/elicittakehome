@@ -2,6 +2,7 @@ import argparse
 import json
 import random
 from typing import Optional
+from sklearn.metrics import confusion_matrix
 
 import attrs
 
@@ -71,15 +72,34 @@ if __name__ == '__main__':
     # Part 1, Naively asking GPT2 to predict AI relevance
     num_correct = 0
     correctnesses = []
+    true_labels = []
+    predicted_labels_binary = []
+    predicted_labels_prob = []
+
     for paper in train_set[:args.num_process]:
         print(f"{paper.title} --- {paper.abstract}"[:100])
         true_prob = just_ask_llm(paper)
         true_or_false = true_prob > 0.5
         correct_label = paper.is_ai
+        true_labels.append(correct_label)
+        predicted_labels_binary.append(true_or_false)
+        predicted_labels_prob.append(true_prob)
         print(f"True Prob: {true_prob}, True or False: {true_or_false}, Correct Label: {correct_label}")
         if true_or_false == correct_label:
             num_correct += 1
         correctnesses.append(true_prob if correct_label else 1 - true_prob)
+
     print(f"Accuracy: {num_correct} / {args.num_process} == {num_correct / args.num_process}")
     print(f"Average correctness: {sum(correctnesses) / len(correctnesses)}")
+
+    # Compute confusion matrix for binary classification
+    cm_binary = confusion_matrix(true_labels, predicted_labels_binary)
+    print("Confusion Matrix (Binary):")
+    print(cm_binary)
+
+    # Compute confusion matrix for probabilistic classification
+    thresholded_probs = [prob > 0.5 for prob in predicted_labels_prob]
+    cm_prob = confusion_matrix(true_labels, thresholded_probs)
+    print("Confusion Matrix (Probabilistic):")
+    print(cm_prob)
 
