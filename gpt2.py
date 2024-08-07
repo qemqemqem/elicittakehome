@@ -4,10 +4,15 @@ from transformers import GPT2Tokenizer, GPT2LMHeadModel
 import torch
 import json
 
+print("Loading GPT-2 tokenizer...")
 tokenizer: GPT2Tokenizer = GPT2Tokenizer.from_pretrained('gpt2')
 tokenizer.pad_token = tokenizer.eos_token
+print("Tokenizer loaded.")
+
+print("Loading GPT-2 model...")
 model: GPT2LMHeadModel = GPT2LMHeadModel.from_pretrained('gpt2', pad_token_id=tokenizer.eos_token_id)
 model.eval().cuda()
+print("Model loaded and moved to GPU.")
 
 def generate(prompt: str, max_length: int = 5, stop_token: str = None) -> str:
     input_ids: torch.Tensor = tokenizer.encode(prompt, return_tensors="pt")
