@@ -179,6 +179,11 @@ def test_logistic_regression(model: LogisticRegression, test_data: list[Paper]) 
 
     print("Confusion Matrix:")
     print(confusion_matrix(y_test, y_pred))
+    tn, fp, fn, tp = confusion_matrix(y_test, y_pred).ravel()
+    print(f"Paper is AI, Model predicts AI: {tp}")
+    print(f"Paper is AI, Model predicts not AI: {fn}")
+    print(f"Paper is not AI, Model predicts AI: {fp}")
+    print(f"Paper is not AI, Model predicts not AI: {tn}")
 
     return accuracy
 
