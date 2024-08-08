@@ -128,6 +128,7 @@ def load_train_test(args, balance_classes: bool = True) -> (list[Paper], list[Pa
                 title=title,
                 abstract=abstract,
                 id=data['meta']['id'],
+                is_ai=data.get('label', None),
             ))
     random.shuffle(test_set)
     test_set = test_set[:args.num_test]
