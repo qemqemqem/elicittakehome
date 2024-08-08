@@ -142,7 +142,7 @@ def train_logistic_regression(train_data: list[Paper]) -> LogisticRegression:
     # print(y_train)
 
     # Create and train the logistic regression model
-    model = LogisticRegression()  # class_weight='balanced')
+    model = LogisticRegression(class_weight='balanced')
     model.fit(X_train, y_train)
 
     # Print model coefficients and intercept
