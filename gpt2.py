@@ -1,8 +1,8 @@
+from functools import lru_cache
 from typing import List, Dict, Tuple
 
 from transformers import GPT2Tokenizer, GPT2LMHeadModel
 import torch
-import json
 
 print("Loading GPT-2 tokenizer...")
 tokenizer: GPT2Tokenizer = GPT2Tokenizer.from_pretrained('gpt2')
@@ -14,6 +14,7 @@ model: GPT2LMHeadModel = GPT2LMHeadModel.from_pretrained('gpt2', pad_token_id=to
 model.eval().cuda()
 print("Model loaded and moved to GPU.")
 
+@lru_cache(maxsize=None)
 def generate(prompt: str, max_length: int = 5, stop_token: str = None) -> str:
     input_ids: torch.Tensor = tokenizer.encode(prompt, return_tensors="pt")
     generated_text_ids: torch.Tensor = model.generate(input_ids=input_ids.cuda(), max_length=max_length+len(input_ids[0]), do_sample=False)
@@ -21,6 +22,7 @@ def generate(prompt: str, max_length: int = 5, stop_token: str = None) -> str:
     post_prompt_text: str = generated_text[len(tokenizer.decode(input_ids[0], clean_up_tokenization_spaces=True)):]
     return prompt + post_prompt_text[:post_prompt_text.find(stop_token) if stop_token else None]
 
+@lru_cache(maxsize=None)
 def get_logits_and_tokens(text: str) -> Tuple[torch.Tensor, List[str]]:
     input_ids: torch.Tensor = tokenizer.encode(text, return_tensors="pt")
     tokens: List[str] = [tokenizer.decode([input_id]) for input_id in input_ids[0]]
