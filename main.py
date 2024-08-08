@@ -148,8 +148,11 @@ def train_logistic_regression(train_data: list[Paper]) -> LogisticRegression:
     model.fit(X_train, y_train)
 
     # Print model coefficients and intercept
-    print("Model coefficients:", model.coef_)
-    print("Model intercept:", model.intercept_)
+    try:
+        print("Model coefficients:", model.coef_)
+        print("Model intercept:", model.intercept_)
+    except AttributeError:
+        print("Model does not have coefficients and intercept, skipping...")
 
     return model
 
