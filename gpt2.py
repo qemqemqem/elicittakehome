@@ -5,7 +5,7 @@ from joblib import Memory
 from transformers import GPT2Tokenizer, GPT2LMHeadModel
 import torch
 
-memory = Memory('/path/to/cache/directory', verbose=0)
+memory = Memory('/tmp', verbose=0)
 
 print("Loading GPT-2 tokenizer...")
 tokenizer: GPT2Tokenizer = GPT2Tokenizer.from_pretrained('gpt2')
