@@ -1,5 +1,6 @@
 import argparse
 import json
+import os
 import random
 from collections import defaultdict
 from typing import Optional, Dict
@@ -33,20 +34,14 @@ def split_text(text: str) -> (str, str):
     except ValueError:
         raise ValueError(f'Error splitting text: {text}')
 
-def just_ask_llm(paper: Paper) -> float:
-    examples = """Title (str): qualitative and quantitative estimates for minimal hypersurfaces with bounded index and area
-Abstract (str): we prove qualitative estimates on the total curvature of closed minimal hypersurfaces in closed riemannian manifolds in terms of their index and area restricting to the case where the hypersurface has dimension less than seven.
-AI relevance (True/False): False
+def just_ask_llm(paper: Paper, question_loc: str) -> float:
+    file_loc = f"questions/{question_loc}.txt"
+    with open(file_loc, 'r') as f:
+        guidance = f.read()
 
-Title (str): updating the transformer for alien languages
-Abstract (str): Transformers are a powerful tool for natural language processing, but they are not always effective for alien languages. This paper proposes a new method for updating the transformer to work with alien languages.
-AI relevance (True/False): True"""
-
-    guidance = "In this dataset, AI relevance is a strict category. If the paper is narrowly about artificial intelligence, this field will be true. Papers in other fields, such as math, cognitive science, or linguistics, will be marked as false."
-
-    prompt = f"{guidance}\n\n{examples}\n\nTitle (str): {paper.title}\nAbstract (str): {paper.abstract}\nAI relevance (True/False):"
+    prompt = f"{guidance}\n\nTitle (str): {paper.title}\nAbstract (str): {paper.abstract}\nAI relevance (True/False):"
     classification_result = get_classification(prompt, [" True", " False"], print_all_probs=False)
-    print(f"Classification Result: {classification_result}")
+    print(f"Classification Result: {paper.id}.{question_loc} -> {classification_result}")
 
     true_prob = classification_result[" True"]
     false_prob = classification_result[" False"]
@@ -202,12 +197,15 @@ def main():
     naive_asking(num_examples=args.num_naive_ask, train_set=train_set)
 
     # Part 2, Annotate the training and test data
+    questions: list[str] = [os.path.splitext(f)[0] for f in os.listdir('questions') if f.endswith('.txt') and os.path.isfile(os.path.join('questions', f))]
     print("Classifying Train Data Papers")
     for paper in train_set:
-        paper.features['just_ask_llm'] = just_ask_llm(paper)
+        for question in questions:
+            paper.features[question] = just_ask_llm(paper, question)
     print("Classifying Test Data Papers")
     for paper in test_set:
-        paper.features['just_ask_llm'] = just_ask_llm(paper)
+        for question in questions:
+            paper.features[question] = just_ask_llm(paper, question)
 
     # Part 3, Train a model to predict AI relevance
     # Train the model
