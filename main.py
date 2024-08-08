@@ -1,6 +1,7 @@
 import argparse
 import json
 import random
+from collections import defaultdict
 from typing import Optional, Dict
 from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
 from sklearn.linear_model import LogisticRegression
@@ -85,8 +86,23 @@ def naive_asking(num_examples: int, train_set: list[Paper]):
     print(f"Paper is not AI, Model predicts AI: {fp}")
     print(f"Paper is not AI, Model predicts not AI: {tn}")
 
+def balance_train_set(train_set: list[Paper], num_of_each: int) -> list[Paper]:
+    # Introducing this function to balance the training set to a 50/50 split. This is to avoid the model learning to predict the majority class (False) all the time. This is something I'll revisit if I have time.
+    class_papers = defaultdict(list)
+    for paper in train_set:
+        class_papers[paper.is_ai].append(paper)
 
-def load_train_test(args) -> (list[Paper], list[Paper]):
+    class_papers[True] = class_papers[True][:num_of_each]
+    class_papers[False] = class_papers[False][:num_of_each]
+    balanced_set = (
+        class_papers[True] +
+        class_papers[False]
+    )
+
+    print(f"Balanced training set to {num_of_each} samples per class.")
+    return balanced_set
+
+def load_train_test(args, balance_classes: bool = True) -> (list[Paper], list[Paper]):
     train_set = []
     with open(args.train_file, 'r') as f:
         for line in f:
@@ -99,6 +115,8 @@ def load_train_test(args) -> (list[Paper], list[Paper]):
                 is_ai=data.get('label', None),
             ))
     random.shuffle(train_set)
+    if balance_classes:
+        train_set = balance_train_set(train_set, args.num_train // 2)
     train_set = train_set[:args.num_train]
 
     test_set = []
