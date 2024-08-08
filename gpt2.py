@@ -25,7 +25,7 @@ def generate(prompt: str, max_length: int = 5, stop_token: str = None) -> str:
     post_prompt_text: str = generated_text[len(tokenizer.decode(input_ids[0], clean_up_tokenization_spaces=True)):]
     return prompt + post_prompt_text[:post_prompt_text.find(stop_token) if stop_token else None]
 
-@memory.cache
+# @memory.cache
 def get_logits_and_tokens(text: str) -> Tuple[torch.Tensor, List[str]]:
     input_ids: torch.Tensor = tokenizer.encode(text, return_tensors="pt")
     tokens: List[str] = [tokenizer.decode([input_id]) for input_id in input_ids[0]]
