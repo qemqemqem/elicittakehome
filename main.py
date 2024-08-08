@@ -178,13 +178,11 @@ def main():
         paper.features['just_ask_llm'] = just_ask_llm(paper)
 
     # Part 3, Train a model to predict AI relevance
-    train_data, test_data = load_train_test(args)
-
     # Train the model
-    model = train_logistic_regression(train_data)
+    model = train_logistic_regression(train_set)
 
     # Test the model
-    accuracy = test_logistic_regression(model, test_data)
+    accuracy = test_logistic_regression(model, test_set)
 
     print(f"Accuracy: {accuracy:.2f}")
 
