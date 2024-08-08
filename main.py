@@ -18,7 +18,7 @@ class Paper:
     id: str
     is_ai: Optional[bool] = None
 
-    features: Dict[str, float] = attrs.attrib(factory=dict)
+    features: Dict[str, float] = attrs.field(factory=dict)
 
     def __attrs_post_init__(self):
         if isinstance(self.is_ai, str):
