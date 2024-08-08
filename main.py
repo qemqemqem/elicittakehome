@@ -4,6 +4,8 @@ import os
 import random
 from collections import defaultdict
 from typing import Optional, Dict
+
+from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
 from sklearn.linear_model import LogisticRegression
 import numpy as np
@@ -142,7 +144,7 @@ def train_logistic_regression(train_data: list[Paper]) -> LogisticRegression:
     # print(y_train)
 
     # Create and train the logistic regression model
-    model = LogisticRegression(class_weight='balanced')
+    model = RandomForestClassifier(class_weight='balanced')
     model.fit(X_train, y_train)
 
     # Print model coefficients and intercept
