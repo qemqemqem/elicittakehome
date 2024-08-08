@@ -53,6 +53,9 @@ AI relevance (True/False): True"""
 
 
 def naive_asking(num_examples: int, train_set: list[Paper]):
+    if num_examples == 0:
+        return  # Avoid division by zero
+
     num_correct = 0
     correctnesses = []
     true_labels = []
