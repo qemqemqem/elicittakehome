@@ -27,7 +27,8 @@ def get_logits_and_tokens(text: str) -> Tuple[torch.Tensor, List[str]]:
     input_ids: torch.Tensor = tokenizer.encode(text, return_tensors="pt")
     tokens: List[str] = [tokenizer.decode([input_id]) for input_id in input_ids[0]]
     output: torch.Tensor = model(input_ids.cuda())
-    return output.logits[0][:-1], tokens
+    # Move logits to CPU, so we don't fill GPU memory with cache
+    return output.logits[0][:-1].detach().cpu(), tokens
 
 def get_classification(prompt: str, classes: List[str], print_all_probs: bool = False) -> Dict[str, float]:
     if any([not class_name.startswith(" ") for class_name in classes]):
