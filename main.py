@@ -142,6 +142,8 @@ def train_logistic_regression(train_data: list[Paper]) -> LogisticRegression:
     # Print the shape of the training data
     print(f"Training data: {X_train.shape[0]} samples, {X_train.shape[1]} features")
     print(X_train)
+    print(f"Training labels: {y_train.shape[0]} samples")
+    print(y_train)
 
     # Create and train the logistic regression model
     model = LogisticRegression()
@@ -162,6 +164,8 @@ def test_logistic_regression(model: LogisticRegression, test_data: list[Paper]) 
     # Print the shape of the test data
     print(f"Test data: {X_test.shape[0]} samples, {X_test.shape[1]} features")
     print(X_test)
+    print(f"Test labels: {y_test.shape[0]} samples")
+    print(y_test)
 
     # Predict and evaluate
     y_pred = model.predict(X_test)
