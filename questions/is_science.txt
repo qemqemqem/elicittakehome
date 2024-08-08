@@ -1,0 +1,12 @@
+In this dataset, Hard sciences relevance is a strict category. If the paper is narrowly about hard sciences, this field will be true. Papers in other fields, such as math, cognitive science, or linguistics, will be marked as false.
+
+==============================
+
+Title (str): scann synthesis of compact and accurate neural networks
+Abstract (str): artificial neural networks anns have become the driving force behind recent artificial intelligence ai research. an important problem with implementing a neural network is the design of its architecture. typically such an architecture is obtained manually by exploring its hyperparameter space and kept fixed during training.
+Hard sciences relevance (True/False): False
+
+Title (str): thermochemistry and photochemistry in cooler hydrogen dominated extrasolar planets the case of gj436b
+Abstract (str): we introduce a new thermochemical kinetics and photochemical model. we use high temperature bidirectional reaction rates for important h c o and n reactions most importantly for ch to co interconversion allowing us to attain thermochemical equilibrium deep in an atmosphere purely kinetically.
+Hard sciences relevance (True/False): True
+

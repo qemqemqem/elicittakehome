@@ -1,0 +1,12 @@
+In this dataset, Math relevance is a strict category. If the paper is narrowly about math, this field will be true. Papers in other fields, such as geography, cognitive science, or linguistics, will be marked as false.
+
+==============================
+
+Title (str): precision stellar radial velocity measurements with fideos at the eso m telescope of la silla
+Abstract (str): we present results from the commissioning and early science programs of fideos the new high resolution echelle spectrograph developed at the centre of astro engineering of pontificia universidad catolica de chile and recently installed at the eso 1m telescope of la silla.
+Math relevance (True/False): False
+
+Title (str): locally toroidal polytopes of rank and sporadic groups
+Abstract (str): we augment the list of finite universal locally toroidal regular polytopes of type due to p.mcmullen and e.schulte adding as well as removing entries. this disproves a related long standing conjecture. our new universal polytope is related to a well known y shaped presentation for the sporadic simple group and admits as the automorphism group.
+Math relevance (True/False): True
+

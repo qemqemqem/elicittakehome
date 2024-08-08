@@ -1,0 +1,12 @@
+In this dataset, Linguistics relevance is a strict category. If the paper is narrowly about linguistics, this field will be true. Papers in other fields, such as math, cognitive science, or geography, will be marked as false.
+
+==============================
+
+Title (str): branching ratio approximation for the self exciting hawkes process
+Abstract (str): we introduce a model independent approximation for the branching ratio of hawkes self exciting point processes. our estimator requires knowing only the mean and variance of the event count in a sufficiently large time window statistics that are readily obtained from empirical data.
+Linguistics relevance (True/False): False
+
+Title (str): an augmented transformer architecture for natural language generation tasks
+Abstract (str): the transformer based neural networks have been showing significant advantages on most evaluations of various natural language processing and other sequence to sequence tasks due to its inherent architecture based superiorities. although the main architecture of the transformer has been continuously being explored little attention was paid to the positional encoding module.
+Linguistics relevance (True/False): True
+

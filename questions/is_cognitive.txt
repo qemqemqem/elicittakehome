@@ -1,0 +1,12 @@
+In this dataset, Cognitive science relevance is a strict category. If the paper is narrowly about cognitive science, this field will be true. Papers in other fields, such as math, or linguistics, will be marked as false.
+
+==============================
+
+Title (str): parallel tempering for the planted clique problem
+Abstract (str): the theoretical information threshold for the planted clique problem is however no polynomial algorithm is known to recover a planted clique of size . in this paper we will apply a standard method for the analysis of disordered models the parallel tempering pt algorithm to the clique problem showing numerically that its time scaling in the hard region is indeed polynomial for the analyzed sizes.
+Cognitive science relevance (True/False): False
+
+Title (str): social climber attachment in forming networks produces phase transition in a measure of connectivity
+Abstract (str): formation and fragmentation of networks is typically studied using percolation theory but most previous research has been restricted to studying a phase transition in cluster size examining the emergence of a giant component. this approach does not study the effects of evolving network structure on dynamics that occur at the nodes such as the synchronization of oscillators and the spread of information epidemics and neuronal excitations.
+Cognitive science relevance (True/False): True
+

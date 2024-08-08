@@ -6,7 +6,7 @@ Title (str): qualitative and quantitative estimates for minimal hypersurfaces wi
 Abstract (str): we prove qualitative estimates on the total curvature of closed minimal hypersurfaces in closed riemannian manifolds in terms of their index and area restricting to the case where the hypersurface has dimension less than seven.
 AI relevance (True/False): False
 
-Title (str): updating the transformer for alien languages
-Abstract (str): Transformers are a powerful tool for natural language processing, but they are not always effective for alien languages. This paper proposes a new method for updating the transformer to work with alien languages.
+Title (str): relaxations for inference in restricted boltzmann machines
+Abstract (str): we propose a relaxation based approximate inference algorithm that samples near map configurations of a binary pairwise markov random field. we experiment on map inference tasks in several restricted boltzmann machines. we also use our underlying sampler to estimate the log partition function of restricted boltzmann machines and compare against other sampling based methods.
 AI relevance (True/False): True
 

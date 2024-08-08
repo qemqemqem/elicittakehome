@@ -1,0 +1,12 @@
+In this dataset, Social science relevance is a strict category. If the paper is narrowly about social science, this field will be true. Papers in other fields, such as math, cognitive science, or chemistry, will be marked as false.
+
+==============================
+
+Title (str): multiwave imaging in an enclosure with variable wave speed
+Abstract (str): in this paper we consider the mathematical model of thermo and photo acoustic tomography for the recovery of the initial condition of a wave field from knowledge of its boundary values. unlike the free space setting we consider the wave problem in a region enclosed by a surface where an impedance boundary condition is imposed.
+Social science relevance (True/False): False
+
+Title (str): impact of artificial intelligence on economic theory
+Abstract (str): artificial intelligence has impacted many aspects of human life. this paper studies the impact of artificial intelligence on economic theory. in particular we study the impact of artificial intelligence on the theory of bounded rationality efficient market hypothesis and prospect theory.
+Social science relevance (True/False): True
+
